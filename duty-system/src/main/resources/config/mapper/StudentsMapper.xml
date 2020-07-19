@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taoqian.duty.dao.StudentsDao">
+
+    <!--属性名和数据库字段名不一致-->
+    <resultMap id="studentsMap" type="com.taoqian.duty.entity.Students">
+        <!-- id标签为主键 -->
+        <id column="id" property="studentId"/>
+        <!-- column是数据库中表的列名，property是对应实体类的属性名 -->
+        <result column="name" property="studentName"/>
+        <result column="sex" property="studentSex"/>
+        <result column="phone" property="studentPhone"/>
+    </resultMap>
+
+    <!--
+       id="save"是唯一的标示符
+       parameterType属性指明插入时使用的参数类型
+       useGeneratedKeys="true"表示使用数据库的自动增长策略
+    -->
+    <insert id="insert" parameterType="com.taoqian.duty.entity.Students">
+    insert into students(id,name,sex,phone)
+    values(#{studentId},#{studentName},#{studentSex},#{studentPhone})
+    </insert>
+
+    <!-- select操作
+    parameterType="int"表示该查询语句需要一个int类型的参数
+    resultType="user"表示返回的是一个user对象
+    resultMap="studentsMap"resultType可以把查询结果封装到pojo类型中，
+    但必须pojo类的属性名和查询到的数据库表的字段名一致。
+    -->
+    <select id="find" parameterType="int" resultMap="studentsMap">
+    select * from students
+    where id = #{studentId}
+    </select>
+
+    <!-- update操作
+    parameterType="user"表示该更新语句需要一个user对象作为参数-->
+    <update id="update" parameterType="com.taoqian.duty.entity.Students">
+    update students
+    set name = #{studentName},sex=#{studentSex},phone=#{studentPhone}
+    where id = #{studentId}
+    </update>
+
+    <!-- delete操作 parameterType="int"表示该查询语句需要一个int类型的参数-->
+    <delete id="delete" parameterType="int">
+        delete from students
+        where id = #{studentId}
+    </delete>
+
+
+</mapper>
