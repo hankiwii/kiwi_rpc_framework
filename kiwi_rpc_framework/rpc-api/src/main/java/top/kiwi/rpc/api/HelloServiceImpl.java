@@ -19,7 +19,6 @@ public class HelloServiceImpl implements HelloService{
     public static void main(String[] args) {
         HelloServiceImpl hs = new HelloServiceImpl();
         String nihao = hs.hello(new HelloObject(10, "nihao"));
-        System.out.println(nihao);
     }
 
 }
